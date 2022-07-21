@@ -8,9 +8,6 @@ mylist = {
     'Rock': 3,
 }
 
-
-
-
 print('Welcome to Scissor Paper Rock Game!')
 n = input('Please enter your name to continue:')
 print('\n1. Scissor \n2. Paper \n3. Rock')
