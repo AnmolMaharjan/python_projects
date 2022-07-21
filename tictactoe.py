@@ -1,4 +1,3 @@
-
 # %% Tic Tac Toe
 
 import os
@@ -6,44 +5,57 @@ import random
 import time
 
 class TicTacToe():
+    message = ''
 
     def __init__(self):
         self.mylist = [['  ','  ','  '],['  ','  ','  '],['  ','  ','  ']]
         
-    def user(self, str):
-        user_in = int(input(f'Player {self.turn} (Enter a position):'))
-        for i, k in enumerate(self.mylist):
-            if 0 == i:
-                for j, v in enumerate(k):
-                    if user_in-1 == j:
-                        if self.mylist[i][j] != '  ':
-                            print('Already Entered')
-                            time.sleep(1)
-                            self.user(str)
-                        else:
-                            self.mylist[i].pop(j)
-                            self.mylist[i].insert(j, str)
-            elif 1 == i:
-                for j, v in enumerate(k):
-                    if user_in-4 == j:
-                        if self.mylist[i][j] != '  ':
-                            print('Already Entered')
-                            time.sleep(1)
-                            self.user(str)
-                        else:
-                            self.mylist[i].pop(j)
-                            self.mylist[i].insert(j, str)
-            # elif 2 == i:
-            else:
-                for j, v in enumerate(k):
-                    if user_in-7 == j:
-                        if self.mylist[i][j] != '  ':
-                            print('Already Entered')
-                            time.sleep(1)
-                            self.user(str)
-                        else:
-                            self.mylist[i].pop(j)
-                            self.mylist[i].insert(j, str)
+    def user(self, names):
+        try:
+            self.message = ''
+            user_in = int(input(f'Player {self.turn} (Enter a position):'))
+            # user_in = int('abcd')
+            if user_in < 1 or user_in > 9 :
+                print('Invalid Input!')
+                print('Please enter a number between 1 to 9 only.')
+                self.user(names)
+            for i, k in enumerate(self.mylist):
+                if 0 == i:
+                    for j, v in enumerate(k):
+                        if user_in-1 == j:
+                            if self.mylist[i][j] != '  ':
+                                print('Already Entered')
+                                time.sleep(1)
+                                self.user(names)
+                            else:
+                                self.mylist[i].pop(j)
+                                self.mylist[i].insert(j, names)
+                elif 1 == i:
+                    for j, v in enumerate(k):
+                        if user_in-4 == j:
+                            if self.mylist[i][j] != '  ':
+                                print('Already Entered')
+                                time.sleep(1)
+                                self.user(names)
+                            else:
+                                self.mylist[i].pop(j)
+                                self.mylist[i].insert(j, names)
+                # elif 2 == i:
+                else:
+                    for j, v in enumerate(k):
+                        if user_in-7 == j:
+                            if self.mylist[i][j] != '  ':
+                                print('Already Entered')
+                                time.sleep(1)
+                                self.user(names)
+                            else:
+                                self.mylist[i].pop(j)
+                                self.mylist[i].insert(j, names)
+            
+            
+        except ValueError:
+            self.message = 'Invalid Input!\nPlease enter a number between 1 to 9 only.'
+            
 
     def format(self):
         print('\nPositions:')
@@ -97,8 +109,12 @@ class TicTacToe():
                     draw -= 1
                 if draw == 0:
                     print('Draw!')
-                    self.__init__()
-                    self.play()
+                    again = input('Press Y/y & Enter to play again.')
+                    if again == 'y' or again == 'Y':
+                        self.__init__()
+                        self.play()
+                    else:
+                        exit()
             
 
     def play(self):
@@ -112,19 +128,19 @@ class TicTacToe():
         self.board()
 
         while True:
-            while self.turn == 2:
+            if self.turn == 2:
                 self.user(' x')
-                break
-            while self.turn == 1:
+            else:
                 self.user(' o')
-                break
             self.clear()
             print("Player 1 = 'o'")
             print("Player 2 = 'x' ")
             self.format()
             self.board()
+            print(self.message)
             self.win_lose()
             self.swap_turn()
+            
 
 if __name__ == '__main__':
     game = TicTacToe()
